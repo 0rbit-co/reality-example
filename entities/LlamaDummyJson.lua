@@ -1,8 +1,8 @@
 local json = require('json')
-Llama = require('@sam/Llama-Herder')
+
 
 -- Configure this to the process ID of the world you want to send chat messages to
-CHAT_TARGET = 'OqvzTvpHYrfswvVZdsSldVTNBnyBOk7kZf-oqDdvUjg'
+CHAT_TARGET = 'vKbkWePtJIXSRKYWU1iaqMQKbHH43E3QblpN9NR8GV8'
 
 _0RBIT = "BaMK1dfayo75s3q1ow6AO64UDpD9SEFbeE8xYrY2fyQ"
 _0RBT_TOKEN_PROCESS = "BUhZLMwQ6yZHguLtJYA5lLUa9LQzLXMXRfaq9FVcPJc"
@@ -16,6 +16,42 @@ end
 function ValidateJsonResource(resource)
   return resource ~= nil and type(resource) == 'string'
 end
+
+
+function Register()
+  print("Registering as Reality Entity")
+  Send({
+    Target = CHAT_TARGET,
+    Tags = {
+      Action = "Reality.EntityCreate",
+    },
+    Data = json.encode({
+      Type = "Avatar",
+      Metadata = {
+        DisplayName = "Llama Json",
+        SkinNumber = 8,
+       
+      },
+      Position = {5, 5}
+    }),
+  })
+end
+
+function Temp() 
+  Send({
+    Target = CHAT_TARGET,
+    Tags = {
+      Action = "Reality.EntityUpdatePosition",
+    },
+    Data = json.encode({
+      Position = {5, 5},
+    }),
+  })
+end
+
+Temp();
+
+Register();
 
 Handlers.add(
   "CreditNoticeHandler",
@@ -35,10 +71,10 @@ Handlers.add(
       return print("Invalid quantity")
     end
 
-    local jsonResource = msg.Tags['X-JsonResource']
-    if not ValidateJsonResource(jsonResource) then
-      return print("Invalid")
-    end
+    -- local jsonResource = msg.Tags['X-JsonResource']
+    -- if not ValidateJsonResource(jsonResource) then
+    --   return print("Invalid")
+    -- end
 
     -- -- Save metadata
     -- local stmt = JokerDb:prepare [[
@@ -66,7 +102,7 @@ Handlers.add(
     })
 
 
-    DispatchJokeMessage(jokeTopic)
+    -- DispatchJokeMessage(jokeTopic)
   end
 )
 
@@ -75,6 +111,7 @@ Handlers.add(
     Handlers.utils.hasMatchingTag("Action", "Receive-Response"),
     function(msg)
         local res = json.decode(msg.Data)
+        local constrainedString = string.sub(json.encode(res), 1, 40)
         ReceivedData = res
         print(Colors.green .. "You have received the data from the 0rbit process.")
         -- Write in Chat
@@ -82,10 +119,10 @@ Handlers.add(
           Target = CHAT_TARGET,
           Tags = {
             Action = 'ChatMessage',
-            ['Author-Name'] = 'Llama Joker',
+            ['Author-Name'] = 'Llama Json',
           },
-          Data = "A joke about '" ..
-              jokeTopic .. "' huh? That's a tough one, let me check my Great Book of Jokes (7th Edition)...",
+          Data = "Dtat is:" .. constrainedString ,
         })
+        print("Dtat is:" .. constrainedString)
     end
 )
