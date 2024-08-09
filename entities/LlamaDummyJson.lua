@@ -2,7 +2,7 @@ local json = require('json')
 
 
 -- Configure this to the process ID of the world you want to send chat messages to
-CHAT_TARGET = 'vKbkWePtJIXSRKYWU1iaqMQKbHH43E3QblpN9NR8GV8'
+CHAT_TARGET = 'ySCfHeIhJxHkO5HK0Lqr7cby0zYLiob4vLeII0sMbuQ'
 
 _0RBIT = "BaMK1dfayo75s3q1ow6AO64UDpD9SEFbeE8xYrY2fyQ"
 _0RBT_TOKEN_PROCESS = "BUhZLMwQ6yZHguLtJYA5lLUa9LQzLXMXRfaq9FVcPJc"
@@ -126,3 +126,85 @@ Handlers.add(
         print("Dtat is:" .. constrainedString)
     end
 )
+
+Handlers.add('DefaultInteraction', Handlers.utils.hasMatchingTag('Action', 'DefaultInteraction'), function(msg)
+	print('DefaultInteraction')
+	-- if ((msg.Timestamp - TIMESTAMP_LAST_MESSAGE_MS) < COOLDOWN_MS) then
+	-- 	return
+	-- end
+	-- local randomEnough = msg.Timestamp
+	-- local scenario = SCENARIOS[randomEnough % # SCENARIOS + 1]
+	-- local playerType = TYPES[randomEnough % # TYPES + 1]
+	-- scenario = scenario:gsub("<TYPE>", playerType)
+	-- scenario = message_overhead .. scenario .. message_underhead
+	Send({
+		Target = CHAT_TARGET,
+		Tags = {
+			Action = 'ChatMessage',
+			['Author-Name'] = 'Llama Json',
+		},
+		Data = json.encode({
+			Xyz = {
+				Title = "challenges you to a battle",
+				Description = "abc",
+				Schema = {
+					Tags = {
+						type = "object",
+						required = {
+							"Action",
+						},
+						properties = {
+							Action = {
+								type = "string",
+								const = "SayHi"
+							},
+						}
+					}
+				}
+			}
+		})})
+	-- TIMESTAMP_LAST_MESSAGE_MS = msg.Timestamp
+end)
+
+Handlers.add('SayHi', 
+  Handlers.utils.hasMatchingTag('Action', 'SayHi'), 
+    function(msg)
+      print("SAYING HI")
+    end
+)
+
+Handlers.add('Schema', Handlers.utils.hasMatchingTag('Action', 'Schema'), function(msg)
+	print('Schema')
+	local sender = msg.From
+	-- local randomEnough = msg.Timestamp
+	-- local scenario = SCENARIOS[randomEnough % # SCENARIOS + 1]
+	-- local playerType = TYPES[randomEnough % # TYPES + 1]
+	-- scenario = scenario:gsub("<TYPE>", playerType)
+	-- scenario_text = message_overhead .. scenario
+	Send({
+		Target = msg.From,
+		Tags = {
+			Type = 'Schema'
+		},
+		Data = json.encode({
+			Xyz = {
+				Title = " challenges you to a battle",
+				Description = "sdfghj",
+				Schema = {
+					Tags = {
+						type = "object",
+						required = {
+							"Action",
+						},
+						properties = {
+							Action = {
+								type = "string",
+								const = "SayHi"
+							},
+						}
+					}
+				}
+			}
+		})
+	})
+end)

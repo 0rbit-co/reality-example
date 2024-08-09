@@ -27,7 +27,20 @@ RealityInfo = {
     },
   }
   
-  RealityEntitiesStatic = {}
+  RealityEntitiesStatic = {
+    ['tZGRFcM-gVE_t2EoCv5usppFgpqJbuGKP46GCS1K7lg'] = {
+          Position = { 6, 6 },
+          Type = 'Avatar',
+          Metadata = {
+            DisplayName = 'Llama OnClick',
+            SkinNumber = 3,
+            Interaction = {
+              Type = 'SchemaForm',
+              Id = 'OnClicking'
+            },
+          },
+        },
+  }
   
   --#endregion
   
