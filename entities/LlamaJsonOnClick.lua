@@ -1,7 +1,23 @@
+-- ADD to your World or WorldTemplate.lua using below
+-- RealityEntitiesStatic = {
+--     ['PID WHERE LLAMA LOADED'] = {
+--           Position = { 6, 6 },
+--           Type = 'Avatar',
+--           Metadata = {
+--             DisplayName = 'Llama OnClick',
+--             SkinNumber = 3,
+--             Interaction = {
+--               Type = 'SchemaForm',
+--               Id = 'OnClicking'
+--             },
+--           },
+--         },
+--   }
+
 local json = require('json')
 
 -- Configure this to the process ID of the world you want to send chat messages to
-CHAT_TARGET = 'TPJR7LLxa6T8ARfRcMCKJk-528qzrOFIZPRMjtxeSN8'
+CHAT_TARGET = 'YOUR WORLD ID'
 
 _0RBIT = "BaMK1dfayo75s3q1ow6AO64UDpD9SEFbeE8xYrY2fyQ"
 _0RBT_TOKEN_PROCESS = "BUhZLMwQ6yZHguLtJYA5lLUa9LQzLXMXRfaq9FVcPJc"
@@ -17,108 +33,6 @@ function ValidateJsonResource(resource)
 end
 
 
--- function Register()
---   print("Registering as Reality Entity")
---   Send({
---     Target = CHAT_TARGET,
---     Tags = {
---       Action = "Reality.EntityCreate",
---     },
---     Data = json.encode({
---       Type = "Avatar",
---       Metadata = {
---         DisplayName = "Llama Json",
---         SkinNumber = 8,
-       
---       },
---       Position = {5, 5}
---     }),
---   })
--- end
-
--- function Temp() 
---   Send({
---     Target = CHAT_TARGET,
---     Tags = {
---       Action = "Reality.EntityUpdatePosition",
---     },
---     Data = json.encode({
---       Position = {5, 5},
---     }),
---   })
--- end
-
--- Temp();
-
--- Register();
-
-Handlers.add(
-  "CreditNoticeHandler",
-  Handlers.utils.hasMatchingTag("Action", "Credit-Notice"),
-  function(msg)
-    -- print("CreditNoticeHandler")
-    if msg.From ~= _0RBT_TOKEN_PROCESS then
-      return print("Credit Notice not from $0RBT")
-    end
-
-    -- Sender is from a trusted process
-    local sender = msg.Tags.Sender
-    local messageId = msg.Id
-
-    local quantity = tonumber(msg.Tags.Quantity)
-    if not Validate0rbtQuantity(quantity) then
-      return print("Invalid quantity")
-    end
-
-    local url = "https://dummyjson.com/products"
-
-    Send({
-      Target = _0RBT_TOKEN_PROCESS,
-      Tags = {
-        Action = 'Transfer',
-        Recipient = _0RBIT,
-        Quantity = msg.Tags.Quantity,
-        ["X-Url"] = url,
-        ["X-Action"] = "Get-Real-Data"
-      },
-    })
-    -- DispatchJokeMessage(jokeTopic)
-  end
-)
-
-Handlers.add(
-    "Receive-Data",
-    Handlers.utils.hasMatchingTag("Action", "Receive-Response"),
-    function(msg)
-        local res = json.decode(msg.Data)
-        local constrainedString = string.sub(json.encode(res), 1, 40)
-        ReceivedData = res
-        print(Colors.green .. "You have received the data from the 0rbit process.")
-        -- Write in Chat
-        Send({
-          Target = CHAT_TARGET,
-          Tags = {
-            Action = 'ChatMessage',
-            ['Author-Name'] = 'Llama Json',
-          },
-          Data = "Dtat is:" .. constrainedString ,
-        })
-        print("Dtat is:" .. constrainedString)
-    end
-)
-
--- Handlers.add('DefaultInteraction', Handlers.utils.hasMatchingTag('Action', 'DefaultInteraction'), function(msg)
--- 	print('DefaultInteraction')
--- 	-- Send({
---     --     Target ="BUhZLMwQ6yZHguLtJYA5lLUa9LQzLXMXRfaq9FVcPJc", 
---     --     Action="Transfer",
---     --     Quantity="1000000000000", 
---     --     Recipient=ao.id
---     -- })
---     print("post send")
--- end)
-
-
 Handlers.add('Schema', Handlers.utils.hasMatchingTag('Action', 'Schema'), function(msg)
 	print('Schema')
 	local sender = msg.From
@@ -129,25 +43,29 @@ Handlers.add('Schema', Handlers.utils.hasMatchingTag('Action', 'Schema'), functi
 		},
 		Data = json.encode({
 			OnClicking = {
-				Title = " challenges you to a battle",
-				Description = "sdfghj",
+				Title = "Send url you want to fetch from",
+				Description = "",
 				Schema = {
 					Tags = {
 						type = "object",
 						required = {
 							"Action",
+                            "Quantity"
 						},
 						properties = {
 							Action = {
 								type = "string",
-								const = "SayHi"
+								const = "SendReq"
 							},
+                            Quantity = {
+                                type = "string",
+                                const = "1000000000000"
+                            },
                             ["X-Response"] = {
 								type = "string",
 								title = "Your response to the situation?",
 								minLength = 5,
 								maxLength = 250,
-								-- ["$comment"] = "Requires 0.01 wAR"
 							}
 						}
 					}
@@ -157,11 +75,40 @@ Handlers.add('Schema', Handlers.utils.hasMatchingTag('Action', 'Schema'), functi
 	})
 end)
 
-Handlers.add('SayHi', 
-  Handlers.utils.hasMatchingTag('Action', 'SayHi'), 
+Handlers.add('SendReq', 
+  Handlers.utils.hasMatchingTag('Action', 'SendReq'), 
     function(msg)
-      print("SAYING HI")
-      local tags = msg.Tags
-      print(tags["X-Response"])
+      print("SAYING Send")
+      local url = msg.Tags["X-Response"] 
+      print(msg.Tags.Quantity)
+      Send({
+              Target = _0RBT_TOKEN_PROCESS,
+                Action = 'Transfer',
+                Recipient = _0RBIT,
+                Quantity = msg.Tags.Quantity,
+                ["X-Url"] = url,
+                ["X-Action"] = "Get-Real-Data"
+            }) 
+      print(msg.Tags["X-Response"])
+    end
+)
+
+Handlers.add(
+    "Receive-Data",
+    Handlers.utils.hasMatchingTag("Action", "Receive-Response"),
+    function(msg)
+        local res = json.decode(msg.Data)
+        local constrainedString = string.sub(json.encode(res), 1, 150)
+        print(Colors.green .. "You have received the data from the 0rbit process.")
+        -- Write in Chat
+        Send({
+          Target = CHAT_TARGET,
+          Tags = {
+            Action = 'ChatMessage',
+            ['Author-Name'] = 'Llama Json',
+          },
+          Data = "Data is:" .. constrainedString ,
+        })
+        print("Data is:" .. constrainedString)
     end
 )
