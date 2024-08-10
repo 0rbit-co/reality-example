@@ -26,21 +26,38 @@ RealityInfo = {
       },
     },
   }
+
+  RealityEntitiesStatic = { ['E4jWlWy1XgoQaZOkwvCTLZakZGHjp9ORqRHZHDXtu_E'] = { Position = { 6, 6 }, Type = 'Avatar', Metadata = { DisplayName = '0rbit Llama', SkinNumber = 3, Interaction = { Type = 'SchemaForm', Id = 'GetRealData' }, }, }, }
   
-  RealityEntitiesStatic = {
-    ['tZGRFcM-gVE_t2EoCv5usppFgpqJbuGKP46GCS1K7lg'] = {
-          Position = { 6, 6 },
-          Type = 'Avatar',
-          Metadata = {
-            DisplayName = 'Llama OnClick',
-            SkinNumber = 3,
-            Interaction = {
-              Type = 'SchemaForm',
-              Id = 'OnClicking'
-            },
-          },
-        },
-  }
+  -- RealityEntitiesStatic = {
+  --   ['PID WHERE LLAMAJSONONCLICK LOADED'] = {
+  --         Position = { 6, 6 },
+  --         Type = 'Avatar',
+  --         Metadata = {
+  --           DisplayName = '0rbit Llama',
+  --           SkinNumber = 3,
+  --           Interaction = {
+  --             Type = 'SchemaForm',
+  --             Id = 'GetRealData'
+  --           },
+  --         },
+  --       },
+  -- }
+
+--   RealityEntitiesStatic = {
+--   ['PID WHERE LLAMAJSONONSEND LOADED'] = {
+--     Position = { 7, 7 },
+--     Type = 'Avatar',
+--     Metadata = {
+--       DisplayName = 'Llama Getter',
+--       SkinNumber = 3,
+--       Interaction = {
+--         Type = 'SchemaExternalForm',
+--         Id = 'GetData'
+--       },
+--     },
+--   },
+-- }
   
   --#endregion
   
