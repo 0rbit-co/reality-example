@@ -43,7 +43,7 @@ function(msg)
 		Data = json.encode({
 			GetRealData = {
 				Title = "What data would you like to see?",
-				Description = "Connect with 0rbit community at \n Discord: https://discord.com/invite/JVSjqaKJgV \nTwitter: https://x.com/0rbitco",
+				Description = "Connect with 0rbit community at \n Discord: https://discord.com/invite/JVSjqaKJgV \nTwitter (X): https://x.com/0rbitco \n      Docs: https://docs.0rbit.co/",
 				Schema = {
 					Tags = {
 						type = "object",
