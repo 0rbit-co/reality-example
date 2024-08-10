@@ -27,8 +27,8 @@ RealityInfo = {
     },
   }
 
-  RealityEntitiesStatic = { ['E4jWlWy1XgoQaZOkwvCTLZakZGHjp9ORqRHZHDXtu_E'] = { Position = { 6, 6 }, Type = 'Avatar', Metadata = { DisplayName = '0rbit Llama', SkinNumber = 3, Interaction = { Type = 'SchemaForm', Id = 'GetRealData' }, }, }, }
-  
+
+ -- for LLAMAJSONONCLICK.lua 
   -- RealityEntitiesStatic = {
   --   ['PID WHERE LLAMAJSONONCLICK LOADED'] = {
   --         Position = { 6, 6 },
@@ -44,6 +44,7 @@ RealityInfo = {
   --       },
   -- }
 
+  -- for LLAMAJSONONSEND.lua 
 --   RealityEntitiesStatic = {
 --   ['PID WHERE LLAMAJSONONSEND LOADED'] = {
 --     Position = { 7, 7 },
