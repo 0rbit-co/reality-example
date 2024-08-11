@@ -26,8 +26,39 @@ RealityInfo = {
       },
     },
   }
-  
-  RealityEntitiesStatic = {}
+
+
+ -- for LLAMAJSONONCLICK.lua 
+  -- RealityEntitiesStatic = {
+  --   ['PID WHERE LLAMAJSONONCLICK LOADED'] = {
+  --         Position = { 6, 6 },
+  --         Type = 'Avatar',
+  --         Metadata = {
+  --           DisplayName = '0rbit Llama',
+  --           SkinNumber = 3,
+  --           Interaction = {
+  --             Type = 'SchemaForm',
+  --             Id = 'GetRealData'
+  --           },
+  --         },
+  --       },
+  -- }
+
+  -- for LLAMAJSONONSEND.lua 
+--   RealityEntitiesStatic = {
+--   ['PID WHERE LLAMAJSONONSEND LOADED'] = {
+--     Position = { 7, 7 },
+--     Type = 'Avatar',
+--     Metadata = {
+--       DisplayName = 'Llama Getter',
+--       SkinNumber = 3,
+--       Interaction = {
+--         Type = 'SchemaExternalForm',
+--         Id = 'GetData'
+--       },
+--     },
+--   },
+-- }
   
   --#endregion
   
